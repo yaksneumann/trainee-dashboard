@@ -35,7 +35,7 @@ A modern Angular-based Single Page Application for managing trainee test results
 - ✅ Responsive Material Design interface
 - ✅ Unit testing ready architecture
 
-## 🚦 Getting Started
+## 🚦 Getting Started 
 
 ```bash
 npm install
