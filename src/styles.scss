@@ -1,1 +1,215 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@include mat.core();
+
+// Custom theme colors
+$dark-green: #00763a;
+$light-green: #42DC64;
+$light-green-bg: #f5fcf7;
+
+// Define custom palettes
+$primary-palette: (
+  50: lighten($dark-green, 50%),
+  100: lighten($dark-green, 40%),
+  200: lighten($dark-green, 30%),
+  300: lighten($dark-green, 20%),
+  400: lighten($dark-green, 10%),
+  500: $dark-green,
+  600: darken($dark-green, 10%),
+  700: darken($dark-green, 20%),
+  800: darken($dark-green, 30%),
+  900: darken($dark-green, 40%),
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(0, 0, 0, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+$accent-palette: (
+  50: lighten($light-green, 35%),
+  100: lighten($light-green, 25%),
+  200: lighten($light-green, 15%),
+  300: lighten($light-green, 5%),
+  400: $light-green,
+  500: darken($light-green, 5%),
+  600: darken($light-green, 15%),
+  700: darken($light-green, 25%),
+  800: darken($light-green, 35%),
+  900: darken($light-green, 45%),
+  A100: lighten($light-green, 15%),
+  A200: $light-green,
+  A400: darken($light-green, 15%),
+  A700: darken($light-green, 25%),
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(0, 0, 0, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(0, 0, 0, 0.87),
+    A200: rgba(0, 0, 0, 0.87),
+    A400: white,
+    A700: white,
+  )
+);
+
+html, body { 
+  height: 100%; 
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: $light-green-bg;
+}
+
+.primary-color { color: $dark-green; }
+.accent-color { color: $light-green; }
+.primary-bg { background-color: $dark-green; }
+.accent-bg { background-color: $light-green; }
+.light-bg { background-color: $light-green-bg; }
+
+// Gradient backgrounds
+.green-gradient {
+  background: linear-gradient(135deg, $dark-green, $light-green);
+  color: white;
+}
+
+.light-green-gradient {
+  background: linear-gradient(135deg, #f5fcf7, #dff7e5);
+}
+
+// Text and border utilities
+.text-dark-green { color: $dark-green; }
+.text-light-green { color: $light-green; }
+.border-dark-green { border-color: $dark-green; }
+.border-light-green { border-color: $light-green; }
+
+// Card styles
+.card {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 118, 58, 0.08);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 118, 58, 0.12);
+    transform: translateY(-2px);
+  }
+  
+  &.primary-border-top {
+    border-top: 4px solid $dark-green;
+  }
+  
+  &.accent-border-top {
+    border-top: 4px solid $light-green;
+  }
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  
+  &.primary {
+    background-color: rgba($dark-green, 0.1);
+    color: $dark-green;
+  }
+  
+  &.accent {
+    background-color: rgba($light-green, 0.1);
+    color: darken($light-green, 20%);
+  }
+}
+
+.mat-mdc-raised-button.mat-primary {
+  background-color: $dark-green;
+}
+
+.mat-mdc-raised-button.mat-accent {
+  background-color: $light-green;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.mat-form-field.green-outline {
+  .mat-form-field-outline {
+    color: $dark-green;
+  }
+  
+  &.mat-focused {
+    .mat-form-field-outline {
+      color: $light-green;
+    }
+  }
+}
+
+// Toast messages styling
+.success-toast {
+  .mdc-snackbar__surface {
+    background-color: #e8f5e9 !important;
+    border-left: 4px solid $light-green !important;
+  }
+  
+  .mat-mdc-snack-bar-label {
+    color: darken($dark-green, 5%) !important;
+  }
+  
+  .mat-mdc-button {
+    color: $dark-green !important;
+  }
+}
+
+.info-toast {
+  .mdc-snackbar__surface {
+    background-color: #e3f2fd !important;
+    border-left: 4px solid #2196f3 !important;
+  }
+  
+  .mat-mdc-snack-bar-label {
+    color: #0d47a1 !important;
+  }
+  
+  .mat-mdc-button {
+    color: #1976d2 !important;
+  }
+}
+
+.warning-toast {
+  .mdc-snackbar__surface {
+    background-color: #fff8e1 !important;
+    border-left: 4px solid #ffc107 !important;
+  }
+  
+  .mat-mdc-snack-bar-label {
+    color: #ff8f00 !important;
+  }
+  
+  .mat-mdc-button {
+    color: #ff8f00 !important;
+  }
+}
+
+.error-toast {
+  .mdc-snackbar__surface {
+    background-color: #ffebee !important;
+    border-left: 4px solid #f44336 !important;
+  }
+  
+  .mat-mdc-snack-bar-label {
+    color: #b71c1c !important;
+  }
+  
+  .mat-mdc-button {
+    color: #d32f2f !important;
+  }
+}

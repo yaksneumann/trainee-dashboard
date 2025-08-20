@@ -1,0 +1,108 @@
+    <div class="trainee-details-container">
+      <div class="form-header">
+        <div class="header-row">
+          <h3 class="section-title">Details</h3>
+          @if (isEditMode) {
+            <button mat-mini-fab color="accent" type="button" (click)="onNewTrainee()" class="new-trainee-fab" aria-label="Add new trainee">
+              <mat-icon>person_add</mat-icon>
+            </button>
+          }
+        </div>
+      </div>
+      <form [formGroup]="traineeForm" class="trainee-form">
+        <div class="form-section">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" placeholder="Enter full name">
+            @if (isFieldInvalid('name')) {
+              <mat-error>{{ getFieldError('name') }}</mat-error>
+            }
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="Enter email address">
+            @if (isFieldInvalid('email')) {
+              <mat-error>{{ getFieldError('email') }}</mat-error>
+            }
+          </mat-form-field>
+  
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field half-width">
+                <mat-label>Grade</mat-label>
+                <input matInput formControlName="grade" placeholder="Enter grade (A-F)">
+                @if (isFieldInvalid('grade')) {
+                  <mat-error>{{ getFieldError('grade') }}</mat-error>
+                }
+              </mat-form-field>
+              
+              <mat-form-field appearance="outline" class="form-field half-width">
+                <mat-label>Subject</mat-label>
+                <input matInput formControlName="subject" placeholder="Enter subject">
+                @if (isFieldInvalid('subject')) {
+                  <mat-error>{{ getFieldError('subject') }}</mat-error>
+                }
+              </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="address" placeholder="Enter address">
+            @if (isFieldInvalid('address')) {
+              <mat-error>{{ getFieldError('address') }}</mat-error>
+            }
+          </mat-form-field>
+  
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field half-width">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="city" placeholder="Enter city">
+              @if (isFieldInvalid('city')) {
+                <mat-error>{{ getFieldError('city') }}</mat-error>
+              }
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline" class="form-field half-width">
+              <mat-label>Postal/ZIP Code</mat-label>
+              <input matInput formControlName="zip" placeholder="Enter postal code">
+              @if (isFieldInvalid('zip')) {
+                <mat-error>{{ getFieldError('zip') }}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+  
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country" placeholder="Enter country">
+            @if (isFieldInvalid('country')) {
+              <mat-error>{{ getFieldError('country') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+  
+        <div class="form-actions">
+          <div class="action-buttons">
+            <button mat-raised-button color="primary" type="button" [disabled]="traineeForm.invalid" (click)="onSubmitClick()" class="action-button submit-button">
+              @if (isEditMode) {
+                <span>Update Trainee</span>
+              } @else {
+                <span>Add Trainee</span>
+              }
+              <mat-icon>{{ isEditMode ? 'update' : 'add' }}</mat-icon>
+            </button>
+            
+            @if (isEditMode) {
+              <button mat-raised-button color="warn" type="button" (click)="onDeleteTrainee()" class="action-button delete-button">
+                <span>Remove Trainee</span>
+                <mat-icon>delete</mat-icon>
+              </button>
+            
+              <button mat-stroked-button color="accent" type="button" (click)="onNewTrainee()" class="action-button new-button">
+                <span>New Trainee</span>
+                <mat-icon>person_add</mat-icon>
+              </button>
+            }
+          </div>
+        </div>
+      </form>
+    </div>

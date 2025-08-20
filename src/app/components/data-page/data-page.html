@@ -1,0 +1,14 @@
+<div class="data-page-container">
+  <div class="list-column">
+    <app-trainee-list
+      [trainees]="trainees()"
+      [currentTrainee]="currentTrainee()"
+      (selectedTrainee)="onSelectTrainee($event)" />
+  </div>
+
+  <div class="details-column">  
+    <app-trainee-details
+      [currentTrainee]="currentTrainee()"
+      (deleteTrainee)="onRemoveTrainee($event)" />
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<mat-card class="trainee-grid-card">
+  
+    <mat-card-content>
+      <div class="table-container">
+        <table mat-table [dataSource]="paginatedData" class="trainee-table" matSort>
+          
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.dateJoined| date:'shortDate' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="grade">
+            <th mat-header-cell *matHeaderCellDef>Grade</th>
+            <td mat-cell *matCellDef="let element">
+              <span class="grade-badge">{{ element.grade }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="subject">
+            <th mat-header-cell *matHeaderCellDef>Subject</th>
+            <td mat-cell *matCellDef="let element">{{ element.subject }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef>Address</th>
+            <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef>City</th>
+            <td mat-cell *matCellDef="let element">{{ element.city }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="country">
+            <th mat-header-cell *matHeaderCellDef>Country</th>
+            <td mat-cell *matCellDef="let element">{{ element.country }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="zip">
+            <th mat-header-cell *matHeaderCellDef>Zip</th>
+            <td mat-cell *matCellDef="let element">{{ element.zip }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">
+              <a [href]="'mailto:' + element.email" class="email-link">
+                {{ element.email }}
+              </a>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            [class.selected-row]="currentTrainee()?.id === row.id"
+            (click)="onSelectedTrainee(row)">
+          </tr>
+        </table>
+  
+        @if (trainees().length === 0) {
+          <div class="no-data-message">
+            No trainees found.
+          </div>
+        }
+      </div>
+    </mat-card-content>
+  
+    <mat-card-footer class="paginator-container">
+        <div>Total: {{ trainees().length }} trainees</div>
+        <mat-paginator 
+            [pageSize]="pageSize"
+            [hidePageSize]="true"
+            [length]="trainees().length"
+            [pageIndex]="currentPage"
+            (page)="onPageChange($event)"
+            aria-label="Select page of trainees">
+      </mat-paginator>
+    </mat-card-footer>
+  </mat-card>
