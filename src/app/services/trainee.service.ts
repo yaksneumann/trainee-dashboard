@@ -68,22 +68,12 @@ export class TraineeService {
   }
 
   updateTrainee(updatedData: Trainee, id: number) {
-    debugger;
-    const traineeIndex = this.traineesSignal().findIndex(trainee => trainee.id === id);
+    this.traineesSignal.update((trainees) =>
+      trainees.map(trainee => 
+        trainee.id === id ? { ...trainee, ...updatedData } : trainee
+      )
+    );
 
-    const updatedTrainee: Trainee = {
-      ...this.traineesSignal()[traineeIndex],
-      ...updatedData
-    };
-
-    const updatedTrainees = [...this.traineesSignal()];
-    updatedTrainees[traineeIndex] = updatedTrainee;
-
-    this.traineesSignal.set(updatedTrainees);
-
-    // this.traineesSignal.update((trainees) =>
-    //   trainees.map(trainee => trainee.id === updatedTrainee.id ? updatedTrainee : trainee)
-    // );
     this.saveTraineesToStorage();
     this.toastService.showSuccess('Trainee updated successfully!');
   }

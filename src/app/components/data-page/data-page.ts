@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TraineeListComponent } from './trainee-list.component/trainee-list.component';
 import { TraineeDetailsComponent } from './trainee-details.component/trainee-details.component';
 import { TraineeService } from '../../services/trainee.service';
