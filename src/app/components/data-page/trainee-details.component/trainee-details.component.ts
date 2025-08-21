@@ -1,25 +1,14 @@
 import { Component, inject, input, output, computed, effect } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatIconModule } from '@angular/material/icon';
+import { MATERIAL_IMPORTS } from '../../../shared/material/material.imports';
 
 import { Trainee } from '../../../shared/models/trainee.interface';
 import { TraineeService } from '../../../services/trainee.service';
 
 @Component({
   selector: 'app-trainee-details',
-  imports: [ CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatIconModule],
+  imports: [ReactiveFormsModule, ...MATERIAL_IMPORTS],
   templateUrl: './trainee-details.component.html',
   styleUrl: './trainee-details.component.scss'
 })
@@ -34,6 +23,7 @@ export class TraineeDetailsComponent  {
   selectTrainee = output<number>();
   deleteTrainee = output<number>();
   newTrainee = output<void>();
+  
   traineeForm!: FormGroup;
   get isEditMode(): boolean {
     return !!this.currentTrainee();
@@ -93,6 +83,7 @@ export class TraineeDetailsComponent  {
   onSaveTrainee() {
     if (this.traineeForm.valid) {
       const formData = this.traineeForm.value;
+      formData.grade = formData.grade.toUpperCase();
       const currentTrainee = this.currentTrainee();
 
       if (this.isEditMode && currentTrainee) {

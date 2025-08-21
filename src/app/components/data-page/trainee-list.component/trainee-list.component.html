@@ -1,5 +1,7 @@
-<mat-card class="trainee-grid-card">
+<div class="trainee-list-container">
+  <app-filter />
   
+  <mat-card class="trainee-grid-card">
     <mat-card-content>
       <div class="table-container">
         <table mat-table [dataSource]="paginatedData" class="trainee-table" matSort>
@@ -67,23 +69,24 @@
           </tr>
         </table>
   
-        @if (trainees().length === 0) {
+        @if (filteredData().length === 0) {
           <div class="no-data-message">
-            No trainees found.
+            No trainees found matching the filter criteria.
           </div>
         }
       </div>
     </mat-card-content>
   
     <mat-card-footer class="paginator-container">
-        <div>Total: {{ trainees().length }} trainees</div>
+        <div>Showing: {{ filteredData().length }} of {{ trainees().length }} trainees</div>
         <mat-paginator 
             [pageSize]="pageSize"
             [hidePageSize]="true"
-            [length]="trainees().length"
+            [length]="filteredData().length"
             [pageIndex]="currentPage"
             (page)="onPageChange($event)"
             aria-label="Select page of trainees">
       </mat-paginator>
     </mat-card-footer>
   </mat-card>
+</div>

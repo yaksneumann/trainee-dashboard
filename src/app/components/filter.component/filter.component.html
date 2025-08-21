@@ -1,126 +1,63 @@
-<!-- <div class="filter-section">
-    <h3>Filters & Actions</h3>
+  <div class="filter-header">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Filter trainees</mat-label>
+      <input 
+        matInput
+        [value]="filterText()"
+        (input)="onFilterChange($event)"
+        placeholder="Enter search terms or use advanced syntax (id:, grade:, grade>, grade<, date>, date<)"
+      >
+      @if (filterText()) {
+        <button 
+          matSuffix 
+          mat-icon-button 
+          aria-label="Clear" 
+          (click)="clearFilter()">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
     
-    <div class="filter-controls">
-      <div class="search-box">
-        <input 
-          type="text"
-          placeholder="Search trainees..."
-          [value]="traineeService.filter()"
-          (input)="onFilterChange($event)"
-          class="search-input">
+    <button 
+      class="info-button"
+      mat-icon-button 
+      [color]="showHelp() ? 'primary' : ''" 
+      (click)="toggleHelp()"
+      matTooltip="Show filter help">
+      <mat-icon>help</mat-icon>
+    </button>
+  </div>
+  
+  @if (showHelp()) {
+    <div class="filter-help">
+      <div class="help-content">
+        <h4>Advanced Search Syntax:</h4>
+        <div class="help-items">
+          <div class="help-item">
+            <span class="syntax">id:5</span>
+            <span class="description">Find trainee with ID 5</span>
+          </div>
+          <div class="help-item">
+            <span class="syntax">grade:A</span>
+            <span class="description">Find trainees with grade A</span>
+          </div>
+          <div class="help-item">
+            <span class="syntax">grade>B</span>
+            <span class="description">Find trainees with grade better than B</span>
+          </div>
+          <div class="help-item">
+            <span class="syntax">grade&lt;C</span>
+            <span class="description">Find trainees with grade worse than C</span>
+          </div>
+          <div class="help-item">
+            <span class="syntax">date>2023-01-01</span>
+            <span class="description">Find trainees who joined after Jan 1, 2023</span>
+          </div>
+          <div class="help-item">
+            <span class="syntax">date&lt;2023-12-31</span>
+            <span class="description">Find trainees who joined before Dec 31, 2023</span>
+          </div>
+        </div>
       </div>
-
-      <button 
-        class="btn btn-primary"
-        (click)="toggleAddForm()">
-        {{ showAddForm ? 'Cancel' : 'Add New Trainee' }}
-      </button>
     </div>
-
-    @if (showAddForm) {
-      <div class="add-form">
-        <h4>Add New Trainee</h4>
-        <form (ngSubmit)="addTrainee()" #addForm="ngForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Name*</label>
-              <input 
-                type="text" 
-                [(ngModel)]="newTrainee.name"
-                name="name"
-                required
-                class="form-input">
-            </div>
-            
-            <div class="form-group">
-              <label>Grade*</label>
-              <select 
-                [(ngModel)]="newTrainee.grade"
-                name="grade"
-                required
-                class="form-input">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label>Email*</label>
-              <input 
-                type="email" 
-                [(ngModel)]="newTrainee.email"
-                name="email"
-                required
-                class="form-input">
-            </div>
-            
-            <div class="form-group">
-              <label>Department*</label>
-              <select 
-                [(ngModel)]="newTrainee.department"
-                name="department"
-                required
-                class="form-input">
-                <option value="">Select Department</option>
-                <option value="Engineering">Engineering</option>
-                <option value="Marketing">Marketing</option>
-                <option value="Sales">Sales</option>
-                <option value="HR">HR</option>
-                <option value="Finance">Finance</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label>Status*</label>
-              <select 
-                [(ngModel)]="newTrainee.status"
-                name="status"
-                required
-                class="form-input">
-                <option value="">Select Status</option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
-                <option value="Completed">Completed</option>
-              </select>
-            </div>
-            
-            <div class="form-group">
-              <label>Enrollment Date*</label>
-              <input 
-                type="date" 
-                [(ngModel)]="enrollmentDateString"
-                name="enrollmentDate"
-                required
-                class="form-input">
-            </div>
-          </div>
-
-          <div class="form-actions">
-            <button 
-              type="submit" 
-              [disabled]="!addForm.form.valid"
-              class="btn btn-primary">
-              Add Trainee
-            </button>
-            <button 
-              type="button"
-              (click)="resetForm()"
-              class="btn btn-secondary">
-              Reset
-            </button>
-          </div>
-        </form>
-      </div>
-    }
-  </div> -->
+  }

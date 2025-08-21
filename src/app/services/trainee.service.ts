@@ -9,15 +9,17 @@ import { ToastService } from './toast.service';
 export class TraineeService {
   private static readonly STORAGE_KEY_TRAINEES = 'traineeManager.trainees';
   private static readonly STORAGE_KEY_NEXT_ID = 'trainee.nextId';
-
+  
   private toastService = inject(ToastService);
-
 
   private traineesSignal = signal<Trainee[]>([...MOCK_TRAINEES]);
   readonly trainees = this.traineesSignal.asReadonly();
 
-  private filterSignal = signal<string>('');
-  readonly filter = this.filterSignal.asReadonly();
+  private filterTextSignal = signal<string>('');
+  readonly filterText = this.filterTextSignal.asReadonly();
+
+  private advancedFilterSignal = signal<boolean>(false);
+  readonly isAdvancedFilter = this.advancedFilterSignal.asReadonly();
 
   private currentTraineeIdSignal = signal<number | null>(null);
   readonly currentTraineeId = this.currentTraineeIdSignal.asReadonly();
@@ -32,18 +34,83 @@ export class TraineeService {
   }
 
   readonly filteredTrainees = computed(() => {
-    const filter = this.filterSignal().toLowerCase();
-    if (!filter) return this.traineesSignal();
-
-    return this.traineesSignal().filter(
-      (trainee) =>
-        trainee.name.toLowerCase().includes(filter) ||
-        trainee.grade.toLowerCase().includes(filter)
-    );
+    const filterText = this.filterTextSignal().trim();    
+    if (!filterText) {
+      return this.traineesSignal();
+    }
+    return this.performAdvancedFiltering(filterText);
   });
 
+  private performAdvancedFiltering(filterText: string): Trainee[] {
+    if (!(/id:|grade:|grade>|grade<|date>|date</i.test(filterText))) {
+      return this.performSimpleSearch(filterText);
+    }
+    const conditions = filterText.split(' ').filter(c => c.trim().length > 0);    
+    return this.traineesSignal().filter(trainee => 
+      conditions.every(condition => this.evaluateCondition(trainee, condition))
+    );
+  }
+
+  private performSimpleSearch(filterText: string): Trainee[] {
+    const lowerFilter = filterText.toLowerCase();
+    return this.traineesSignal().filter(trainee => 
+      trainee.name.toLowerCase().includes(lowerFilter) ||
+      trainee.grade.toLowerCase().includes(lowerFilter) ||
+      trainee.subject.toLowerCase().includes(lowerFilter) ||
+      trainee.email.toLowerCase().includes(lowerFilter) ||
+      trainee.id.toString().includes(lowerFilter) ||
+      trainee.city.toLowerCase().includes(lowerFilter) ||
+      trainee.country.toLowerCase().includes(lowerFilter)
+    );
+  }
+
+  private evaluateCondition(trainee: Trainee, condition: string): boolean {
+    const filterStrategies: {[key: string]: (t: Trainee, value: string) => boolean} = {
+      'id:': (t, value) => t.id.toString() === value.trim(),
+      'grade:': (t, value) => t.grade.toUpperCase() === value.trim().toUpperCase(),
+      'grade>': (t, value) => this.compareGrades(t.grade, value.trim()) > 0,
+      'grade<': (t, value) => this.compareGrades(t.grade, value.trim()) < 0,
+      'date>': (t, value) => {
+        try { return t.dateJoined > new Date(value.trim()); } 
+        catch { return false; }
+      },
+      'date<': (t, value) => {
+        try { return t.dateJoined < new Date(value.trim()); } 
+        catch { return false; }
+      }
+    };
+
+    for (const [prefix, strategyFn] of Object.entries(filterStrategies)) {
+      if (condition.toLowerCase().startsWith(prefix)) {
+        const value = condition.substring(prefix.length);
+        return strategyFn(trainee, value);
+      }
+    }
+    const lowerCondition = condition.toLowerCase();
+    return trainee.name.toLowerCase().includes(lowerCondition) ||
+          trainee.grade.toLowerCase().includes(lowerCondition) ||
+          trainee.subject.toLowerCase().includes(lowerCondition) ||
+          trainee.email.toLowerCase().includes(lowerCondition) ||
+          trainee.id.toString().includes(lowerCondition);
+  }
+  
+  private compareGrades(gradeA: string, gradeB: string): number {
+    const gradeOrder = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F', 'F-'];
+    const normalizedA = gradeA.toUpperCase();
+    const normalizedB = gradeB.toUpperCase();
+    const posA = gradeOrder.indexOf(normalizedA);
+    const posB = gradeOrder.indexOf(normalizedB);
+    const valueA = posA === -1 ? gradeOrder.length : posA;
+    const valueB = posB === -1 ? gradeOrder.length : posB;
+    return valueB - valueA;
+  }
+
   setFilter(filter: string) {
-    this.filterSignal.set(filter);
+    this.filterTextSignal.set(filter);
+  }
+  
+  toggleAdvancedFilter(isAdvanced: boolean) {
+    this.advancedFilterSignal.set(isAdvanced);
   }
 
   setCurrentTrainee(traineeId: number | null): void {

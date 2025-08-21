@@ -7,6 +7,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 export const MATERIAL_IMPORTS = [
   MatButtonModule,
@@ -17,5 +18,6 @@ export const MATERIAL_IMPORTS = [
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatSlideToggleModule
 ];

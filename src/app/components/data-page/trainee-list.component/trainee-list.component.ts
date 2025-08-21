@@ -1,20 +1,25 @@
-import { Component, input, output, effect } from '@angular/core';
+import { Component, input, output, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MATERIAL_IMPORTS } from '../../../shared/material/material.imports';
 import { Trainee } from '../../../shared/models/trainee.interface';
+import { TraineeService } from '../../../services/trainee.service';
+import { FilterComponent } from '../../filter.component/filter.component';
 
 @Component({
   selector: 'app-trainee-list',
-  imports: [...MATERIAL_IMPORTS, CommonModule],
+  imports: [...MATERIAL_IMPORTS, CommonModule, FilterComponent],
   templateUrl: './trainee-list.component.html',
   styleUrl: './trainee-list.component.scss'
 })
 export class TraineeListComponent {
+  private traineeService = inject(TraineeService);
+  
   trainees = input<Trainee[]>([]);
   currentTrainee = input<Trainee | null>(null);
 
   selectedTrainee = output<Trainee>();
   
+  filteredData = this.traineeService.filteredTrainees;
   displayedColumns: string[] = ['id', 'name', 'date', 'grade', 'subject', 'address', 'city', 'country', 'zip', 'email'];
   currentPage = 0;
   pageSize = 10;
@@ -37,9 +42,13 @@ export class TraineeListComponent {
   }
 
   updatePaginatedData() {
+    const filteredData = this.filteredData();
     const startIndex = this.currentPage * this.pageSize;
+    if (startIndex >= filteredData.length && filteredData.length > 0 && this.currentPage > 0) {
+      this.currentPage = 0;
+    }
     const endIndex = startIndex + this.pageSize;
-    this.paginatedData = this.trainees().slice(startIndex, endIndex);
+    this.paginatedData = filteredData.slice(startIndex, endIndex);
   }
 }
 
