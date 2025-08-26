@@ -1,215 +1,339 @@
 @use '@angular/material' as mat;
 @include mat.core();
 
-// Custom theme colors
 $dark-green: #00763a;
 $light-green: #42DC64;
 $light-green-bg: #f5fcf7;
 
-// Define custom palettes
-$primary-palette: (
-  50: lighten($dark-green, 50%),
-  100: lighten($dark-green, 40%),
-  200: lighten($dark-green, 30%),
-  300: lighten($dark-green, 20%),
-  400: lighten($dark-green, 10%),
-  500: $dark-green,
-  600: darken($dark-green, 10%),
-  700: darken($dark-green, 20%),
-  800: darken($dark-green, 30%),
-  900: darken($dark-green, 40%),
-  contrast: (
-    50: rgba(0, 0, 0, 0.87),
-    100: rgba(0, 0, 0, 0.87),
-    200: rgba(0, 0, 0, 0.87),
-    300: rgba(0, 0, 0, 0.87),
-    400: rgba(0, 0, 0, 0.87),
-    500: white,
-    600: white,
-    700: white,
-    800: white,
-    900: white,
-  )
-);
+@include mat.theme((color: (primary: mat.$azure-palette,
+            tertiary: mat.$blue-palette,
+        ),
+        density: 0,
+    ));
 
-$accent-palette: (
-  50: lighten($light-green, 35%),
-  100: lighten($light-green, 25%),
-  200: lighten($light-green, 15%),
-  300: lighten($light-green, 5%),
-  400: $light-green,
-  500: darken($light-green, 5%),
-  600: darken($light-green, 15%),
-  700: darken($light-green, 25%),
-  800: darken($light-green, 35%),
-  900: darken($light-green, 45%),
-  A100: lighten($light-green, 15%),
-  A200: $light-green,
-  A400: darken($light-green, 15%),
-  A700: darken($light-green, 25%),
-  contrast: (
-    50: rgba(0, 0, 0, 0.87),
-    100: rgba(0, 0, 0, 0.87),
-    200: rgba(0, 0, 0, 0.87),
-    300: rgba(0, 0, 0, 0.87),
-    400: rgba(0, 0, 0, 0.87),
-    500: white,
-    600: white,
-    700: white,
-    800: white,
-    900: white,
-    A100: rgba(0, 0, 0, 0.87),
-    A200: rgba(0, 0, 0, 0.87),
-    A400: white,
-    A700: white,
-  )
-);
-
-html, body { 
-  height: 100%; 
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: $light-green-bg;
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: $light-green-bg;
 }
 
-.primary-color { color: $dark-green; }
-.accent-color { color: $light-green; }
-.primary-bg { background-color: $dark-green; }
-.accent-bg { background-color: $light-green; }
-.light-bg { background-color: $light-green-bg; }
+// .primary-color { color: $dark-green; }
+// .accent-color { color: $light-green; }
+// .primary-bg { background-color: $dark-green; }
+// .accent-bg { background-color: $light-green; }
+// .light-bg { background-color: $light-green-bg; }
 
-// Gradient backgrounds
 .green-gradient {
-  background: linear-gradient(135deg, $dark-green, $light-green);
-  color: white;
+    background: linear-gradient(135deg, $dark-green, $light-green);
+    color: white;
 }
 
 .light-green-gradient {
-  background: linear-gradient(135deg, #f5fcf7, #dff7e5);
+    background: linear-gradient(135deg, #f5fcf7, #dff7e5);
 }
 
-// Text and border utilities
-.text-dark-green { color: $dark-green; }
-.text-light-green { color: $light-green; }
-.border-dark-green { border-color: $dark-green; }
-.border-light-green { border-color: $light-green; }
-
-// Card styles
-.card {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 118, 58, 0.08);
-  transition: all 0.3s ease;
-  
-  &:hover {
-    box-shadow: 0 8px 24px rgba(0, 118, 58, 0.12);
-    transform: translateY(-2px);
-  }
-  
-  &.primary-border-top {
-    border-top: 4px solid $dark-green;
-  }
-  
-  &.accent-border-top {
-    border-top: 4px solid $light-green;
-  }
-}
-
-.badge {
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 500;
-  
-  &.primary {
-    background-color: rgba($dark-green, 0.1);
+.text-dark-green {
     color: $dark-green;
-  }
-  
-  &.accent {
-    background-color: rgba($light-green, 0.1);
-    color: darken($light-green, 20%);
-  }
 }
 
-.mat-mdc-raised-button.mat-primary {
-  background-color: $dark-green;
+.text-light-green {
+    color: $light-green;
 }
 
-.mat-mdc-raised-button.mat-accent {
-  background-color: $light-green;
-  color: rgba(0, 0, 0, 0.87);
+.border-dark-green {
+    border-color: $dark-green;
+}
+
+.border-light-green {
+    border-color: $light-green;
 }
 
 .mat-form-field.green-outline {
-  .mat-form-field-outline {
-    color: $dark-green;
-  }
-  
-  &.mat-focused {
     .mat-form-field-outline {
-      color: $light-green;
+        color: $dark-green;
     }
-  }
+
+    &.mat-focused {
+        .mat-form-field-outline {
+            color: $light-green;
+        }
+    }
 }
 
-// Toast messages styling
 .success-toast {
-  .mdc-snackbar__surface {
-    background-color: #e8f5e9 !important;
-    border-left: 4px solid $light-green !important;
-  }
-  
-  .mat-mdc-snack-bar-label {
-    color: darken($dark-green, 5%) !important;
-  }
-  
-  .mat-mdc-button {
-    color: $dark-green !important;
-  }
+    .mdc-snackbar__surface {
+        background-color: #e8f5e9 !important;
+        border-left: 4px solid $light-green !important;
+    }
+
+    .mat-mdc-snack-bar-label {
+        color: darken($dark-green, 5%) !important;
+    }
+
+    .mat-mdc-button {
+        color: $dark-green !important;
+    }
 }
 
 .info-toast {
-  .mdc-snackbar__surface {
-    background-color: #e3f2fd !important;
-    border-left: 4px solid #2196f3 !important;
-  }
-  
-  .mat-mdc-snack-bar-label {
-    color: #0d47a1 !important;
-  }
-  
-  .mat-mdc-button {
-    color: #1976d2 !important;
-  }
+    .mdc-snackbar__surface {
+        background-color: #e3f2fd !important;
+        border-left: 4px solid #2196f3 !important;
+    }
+
+    .mat-mdc-snack-bar-label {
+        color: #0d47a1 !important;
+    }
+
+    .mat-mdc-button {
+        color: #1976d2 !important;
+    }
 }
 
 .warning-toast {
-  .mdc-snackbar__surface {
-    background-color: #fff8e1 !important;
-    border-left: 4px solid #ffc107 !important;
-  }
-  
-  .mat-mdc-snack-bar-label {
-    color: #ff8f00 !important;
-  }
-  
-  .mat-mdc-button {
-    color: #ff8f00 !important;
-  }
+    .mdc-snackbar__surface {
+        background-color: #fff8e1 !important;
+        border-left: 4px solid #ffc107 !important;
+    }
+
+    .mat-mdc-snack-bar-label {
+        color: #ff8f00 !important;
+    }
+
+    .mat-mdc-button {
+        color: #ff8f00 !important;
+    }
 }
 
 .error-toast {
-  .mdc-snackbar__surface {
-    background-color: #ffebee !important;
-    border-left: 4px solid #f44336 !important;
-  }
-  
-  .mat-mdc-snack-bar-label {
-    color: #b71c1c !important;
-  }
-  
-  .mat-mdc-button {
-    color: #d32f2f !important;
-  }
+    .mdc-snackbar__surface {
+        background-color: #ffebee !important;
+        border-left: 4px solid #f44336 !important;
+    }
+
+    .mat-mdc-snack-bar-label {
+        color: #b71c1c !important;
+    }
+
+    .mat-mdc-button {
+        color: #d32f2f !important;
+    }
+}
+
+::ng-deep {
+    .mdc-notched-outline {
+        color: #00763a;
+    }
+
+    .mat-mdc-select-panel {
+        background-color: white !important;
+    }
+
+    .mat-mdc-option {
+        background-color: white !important;
+
+        &:hover:not(.mdc-list-item--disabled) {
+            background-color: rgba(0, 0, 0, 0.04) !important;
+        }
+
+        &.mat-mdc-option-active {
+            background-color: rgba(0, 0, 0, 0.08) !important;
+        }
+
+        &.mat-selected:not(.mdc-list-item--disabled) {
+            background-color: rgba(0, 0, 0, 0.12) !important;
+        }
+    }
+
+    .mdc-menu-surface {
+        background-color: white !important;
+        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+            0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+            0px 1px 10px 0px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    .mat-mdc-form-field-focus-overlay {
+        background-color: rgba(66, 220, 100, 0.1);
+    }
+
+    .mat-mdc-form-field.mat-focused .mat-mdc-form-field-label {
+        color: #00763a;
+    }
+
+    .mat-mdc-form-field.mat-focused .mat-mdc-form-field-outline-thick {
+        color: #42DC64;
+    }
+
+    .mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-thick {
+        color: rgba(0, 118, 58, 0.6);
+    }
+
+    .mat-mdc-form-field {
+        .mat-mdc-text-field-wrapper {
+            background-color: rgba(66, 220, 100, 0.03);
+            border-radius: 4px;
+        }
+
+        &.mat-focused .mat-mdc-text-field-wrapper {
+            background-color: rgba(66, 220, 100, 0.08);
+        }
+
+        .mat-mdc-form-field-flex {
+            padding: 0 10px;
+        }
+    }
+
+    .mat-mdc-input-element {
+        padding: 6px 0 4px !important;
+        color: #333 !important;
+        font-weight: 400;
+        font-size: 14px;
+    }
+
+    .mat-mdc-form-field-label {
+        color: #00763a;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .mat-mdc-form-field-infix {
+        padding: 0.4em 0;
+        min-height: 40px !important;
+    }
+
+    .mat-mdc-form-field-invalid .mat-mdc-form-field-label {
+        color: #f44336;
+    }
+
+    %button-base {
+        transition: all 0.3s ease;
+        padding: 0 24px;
+        height: 40px;
+        font-weight: 500;
+    }
+
+    %button-focus-effect {
+        &:not(:disabled):before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(0);
+            transition: transform 0.4s;
+            border-radius: 4px;
+        }
+
+        &:not(:disabled):focus:before {
+            transform: scale(1);
+        }
+    }
+
+    .mat-mdc-raised-button.mat-primary {
+        @extend %button-base;
+        background-color: #00763a;
+        color: white;
+        box-shadow: 0 2px 8px rgba(0, 118, 58, 0.2);
+
+        &:hover:not(:disabled) {
+            background-color: lighten(#00763a, 5%);
+            box-shadow: 0 4px 12px rgba(0, 118, 58, 0.3);
+        }
+
+        &:active:not(:disabled) {
+            background-color: darken(#00763a, 5%);
+        }
+
+        &:disabled {
+            background-color: rgba(0, 118, 58, 0.4);
+            color: rgba(255, 255, 255, 0.8);
+            cursor: not-allowed;
+        }
+    }
+
+    .mat-mdc-raised-button.mat-warn {
+        @extend %button-base;
+        background-color: #f44336;
+        color: white;
+
+        &:hover {
+            background-color: darken(#f44336, 5%);
+            box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+        }
+    }
+
+    .mat-mdc-stroked-button {
+        @extend %button-base;
+        border: 1px solid rgba(66, 220, 100, 0.5);
+        color: #00763a;
+
+        &:hover {
+            background-color: rgba(66, 220, 100, 0.08);
+            border-color: rgba(66, 220, 100, 0.8);
+        }
+
+        &.new-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .mat-icon {
+                color: #42DC64;
+            }
+        }
+    }
+
+    .submit-button,
+    .delete-button {
+        position: relative;
+        overflow: hidden;
+        @extend %button-focus-effect;
+    }
+
+    .mat-stroked-button.mat-warn {
+        color: #f44336;
+        border-color: rgba(244, 67, 54, 0.5);
+        padding: 8px 24px;
+        font-weight: 500;
+
+        &:hover {
+            background-color: rgba(244, 67, 54, 0.08);
+        }
+    }
+
+    .mat-icon {
+        color: #00763a;
+    }
+
+    .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline {
+        color: #42DC64;
+    }
+
+    .mat-mdc-icon-button:hover {
+        background-color: rgba(0, 118, 58, 0.08);
+    }
+
+    .mat-mdc-paginator-container {
+        justify-content: flex-start !important;
+    }
+
+    .mat-mdc-paginator-range-label,
+    .mat-mdc-paginator-navigation-first,
+    .mat-mdc-paginator-navigation-previous,
+    .mat-mdc-paginator-navigation-next,
+    .mat-mdc-paginator-navigation-last {
+        color: #00763a !important;
+    }
+
+    .mat-mdc-card-content:first-child {
+        padding: 0px !important;
+    }
+
+    .mat-mdc-card-content {
+        padding: 0px !important;
+    }
 }

@@ -23,7 +23,7 @@ export class TraineeDetailsComponent  {
   selectTrainee = output<number>();
   deleteTrainee = output<number>();
   newTrainee = output<void>();
-  
+
   traineeForm!: FormGroup;
   get isEditMode(): boolean {
     return !!this.currentTrainee();
@@ -63,7 +63,7 @@ export class TraineeDetailsComponent  {
     this.traineeForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(30)]],
       email: ['', [Validators.required, Validators.email]],
-      grade: ['', Validators.required],
+      grade: [null, [Validators.required, Validators.min(1), Validators.max(100)]],
       subject: ['', Validators.required],
       address: ['', Validators.required],
       city: ['', Validators.required],
@@ -83,7 +83,7 @@ export class TraineeDetailsComponent  {
   onSaveTrainee() {
     if (this.traineeForm.valid) {
       const formData = this.traineeForm.value;
-      formData.grade = formData.grade.toUpperCase();
+      // No need to convert grade to uppercase as it's now a number
       const currentTrainee = this.currentTrainee();
 
       if (this.isEditMode && currentTrainee) {

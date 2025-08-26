@@ -1,7 +1,7 @@
 export interface Trainee {
   id: number;
   name: string;
-  grade: string;
+  grade: number;
   email: string;
   dateJoined: Date;
   address: string;
@@ -19,24 +19,10 @@ export interface Subject {
   traineeId: string;
 }
 
-export interface TraineeWithGrade extends Trainee {
-  averageGrade: number;
-  status: 'Passed' | 'Failed';
-}
-
-export interface FilterCriteria {
-  searchText: string;
-  gradeRange?: { min: number; max: number };
-  dateRange?: { start: Date; end: Date };
-  subjects: string[];
-  ids: string[];
-  status: ('Passed' | 'Failed')[];
-}
-
-export interface PageState {
-  page: number;
-  pageSize: number;
-  sortField: string;
-  sortDirection: 'asc' | 'desc';
-  filters: FilterCriteria;
+export interface MonitorTrainee {
+  id: number;
+  name: string;
+  average: number;
+  exams: number;
+  passed: boolean;
 }

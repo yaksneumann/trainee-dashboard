@@ -1,1 +1,217 @@
-<p>analysis-page works!</p>
+<div class="analysis-container">
+  <div class="filters-container">
+    <div class="filter-row">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>IDs</mat-label>
+        <mat-select [value]="selectedIds()" multiple (selectionChange)="selectedIds.set($event.value)">
+          @for (trainee of trainees(); track trainee.id) {
+            <mat-option [value]="trainee.id">{{ trainee.id }} - {{ trainee.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+    <div class="filter-row">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Subjects</mat-label>
+        <mat-select [value]="selectedSubjects()" multiple (selectionChange)="selectedSubjects.set($event.value)">
+          @for (subject of allSubjects(); track subject) {
+            <mat-option [value]="subject">{{ subject }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  
+  <div class="charts-container" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+    @if (activeCharts().length > 0) {
+      <div class="chart-card" cdkDrag>
+        @if (activeCharts()[0] === 'chart1') {
+          <div class="chart-header">
+            <h3>Chart 1: Grades average over time for students with ID</h3>
+            <button mat-icon-button color="primary" (click)="swapWithHidden(0)">
+              <mat-icon>swap_vert</mat-icon>
+            </button>
+          </div>
+          <div class="chart-content">
+            @if (selectedIds().length > 0) {
+              <div class="chart-placeholder">
+                <div class="trainee-legend">
+                  @for (traineeId of selectedIds(); track traineeId) {
+                    <div class="trainee-data">
+                      <p>{{ getTraineeById(traineeId)?.name }} (ID: {{ traineeId }})</p>
+                      <p>Subject: {{ getTraineeById(traineeId)?.subject }}</p>
+                      <p>Current Grade: {{ getTraineeById(traineeId)?.grade }}</p>
+                    </div>
+                  }
+                </div>
+                <div class="chart-visualization">
+                  <canvas #chart1Canvas0 id="chart1Canvas-slot0" width="400" height="300"></canvas>
+                </div>
+              </div>
+            } @else {
+              <div class="no-data">
+                <p>Please select at least one trainee ID</p>
+              </div>
+            }
+          </div>
+        } @else if (activeCharts()[0] === 'chart2') {
+          <div class="chart-header">
+            <h3>Chart 2: Students averages for students with chosen ID</h3>
+            <button mat-icon-button color="primary" (click)="swapWithHidden(0)">
+              <mat-icon>swap_vert</mat-icon>
+            </button>
+          </div>
+          <div class="chart-content">
+            @if (selectedIds().length > 0) {
+              <div class="chart-placeholder">
+                <div class="trainee-legend">
+                  @for (traineeId of selectedIds(); track traineeId) {
+                    <div class="trainee-data">
+                      <p>{{ getTraineeById(traineeId)?.name }}'s Average</p>
+                    </div>
+                  }
+                </div>
+                <div class="chart-visualization">
+                  <canvas #chart2Canvas0 id="chart2Canvas-slot0" width="400" height="300"></canvas>
+                </div>
+              </div>
+            } @else {
+              <div class="no-data">
+                <p>Please select at least one trainee ID</p>
+              </div>
+            }
+          </div>
+        } @else if (activeCharts()[0] === 'chart3') {
+          <div class="chart-header">
+            <h3>Chart 3: Grades averages per subject</h3>
+            <button mat-icon-button color="primary" (click)="swapWithHidden(0)">
+              <mat-icon>swap_vert</mat-icon>
+            </button>
+          </div>
+          <div class="chart-content">
+            @if (selectedSubjects().length > 0) {
+              <div class="chart-placeholder">
+                <div class="subject-legend">
+                  @for (subject of selectedSubjects(); track subject) {
+                    <div class="subject-data">
+                      <p>{{ subject }}'s Average: {{ getAveragesBySubject(subject).average }}</p>
+                    </div>
+                  }
+                </div>
+                <div class="chart-visualization">
+                  <canvas #chart3Canvas0 id="chart3Canvas-slot0" width="400" height="300"></canvas>
+                </div>
+              </div>
+            } @else {
+              <div class="no-data">
+                <p>Please select at least one subject</p>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    @if (activeCharts().length > 1) {
+      <div class="chart-card" cdkDrag>
+        @if (activeCharts()[1] === 'chart1') {
+          <div class="chart-header">
+            <h3>Chart 1: Grades average over time for students with ID</h3>
+            <button mat-icon-button color="primary" (click)="swapWithHidden(1)">
+              <mat-icon>swap_vert</mat-icon>
+            </button>
+          </div>
+          <div class="chart-content">
+            @if (selectedIds().length > 0) {
+              <div class="chart-placeholder">
+                <div class="trainee-legend">
+                  @for (traineeId of selectedIds(); track traineeId) {
+                    <div class="trainee-data">
+                      <p>{{ getTraineeById(traineeId)?.name }} (ID: {{ traineeId }})</p>
+                      <p>Subject: {{ getTraineeById(traineeId)?.subject }}</p>
+                      <p>Current Grade: {{ getTraineeById(traineeId)?.grade }}</p>
+                    </div>
+                  }
+                </div>
+                <div class="chart-visualization">
+                  <canvas #chart1Canvas1 id="chart1Canvas-slot1" width="400" height="300"></canvas>
+                </div>
+              </div>
+            } @else {
+              <div class="no-data">
+                <p>Please select at least one trainee ID</p>
+              </div>
+            }
+          </div>
+        } @else if (activeCharts()[1] === 'chart2') {
+          <div class="chart-header">
+            <h3>Chart 2: Students averages for students with chosen ID</h3>
+            <button mat-icon-button color="primary" (click)="swapWithHidden(1)">
+              <mat-icon>swap_vert</mat-icon>
+            </button>
+          </div>
+          <div class="chart-content">
+            @if (selectedIds().length > 0) {
+              <div class="chart-placeholder">
+                <div class="trainee-legend">
+                  @for (traineeId of selectedIds(); track traineeId) {
+                    <div class="trainee-data">
+                      <p>{{ getTraineeById(traineeId)?.name }}'s Average</p>
+                    </div>
+                  }
+                </div>
+                <div class="chart-visualization">
+                  <canvas #chart2Canvas1 id="chart2Canvas-slot1" width="400" height="300"></canvas>
+                </div>
+              </div>
+            } @else {
+              <div class="no-data">
+                <p>Please select at least one trainee ID</p>
+              </div>
+            }
+          </div>
+        } @else if (activeCharts()[1] === 'chart3') {
+          <div class="chart-header">
+            <h3>Chart 3: Grades averages per subject</h3>
+            <button mat-icon-button color="primary" (click)="swapWithHidden(1)">
+              <mat-icon>swap_vert</mat-icon>
+            </button>
+          </div>
+          <div class="chart-content">
+            @if (selectedSubjects().length > 0) {
+              <div class="chart-placeholder">
+                <div class="subject-legend">
+                  @for (subject of selectedSubjects(); track subject) {
+                    <div class="subject-data">
+                      <p>{{ subject }}'s Average: {{ getAveragesBySubject(subject).average }}</p>
+                    </div>
+                  }
+                </div>
+                <div class="chart-visualization">
+                  <canvas #chart3Canvas1 id="chart3Canvas-slot1" width="400" height="300"></canvas>
+                </div>
+              </div>
+            } @else {
+              <div class="no-data">
+                <p>Please select at least one subject</p>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+  
+  <div class="hidden-chart-container">
+    <div class="hidden-chart-button" cdkDrag>
+      @if (hiddenChart() === 'chart1') {
+        <div>Chart 1: Grades average over time for students with ID</div>
+      } @else if (hiddenChart() === 'chart2') {
+        <div>Chart 2: Students averages for students with chosen ID</div>
+      } @else if (hiddenChart() === 'chart3') {
+        <div>Chart 3: Grades averages per subject</div>
+      }
+    </div>
+  </div>
+</div>

@@ -4,7 +4,7 @@ export const MOCK_TRAINEES: Trainee[] = [
   {
     id: 1,
     name: "Liam Parker",
-    grade: "A",
+    grade: 94,
     email: "liam.parker@example.com",
     dateJoined: new Date("2024-01-15"),
     address: "12 Elm Street",
@@ -16,7 +16,7 @@ export const MOCK_TRAINEES: Trainee[] = [
   {
     id: 2,
     name: "Sofia Martinez",
-    grade: "B+",
+    grade: 57,
     email: "sofia.martinez@example.com",
     dateJoined: new Date("2024-02-10"),
     address: "45 Oak Avenue",
@@ -28,7 +28,7 @@ export const MOCK_TRAINEES: Trainee[] = [
   {
     id: 3,
     name: "Ethan Chen",
-    grade: "A-",
+    grade: 90,
     email: "ethan.chen@example.com",
     dateJoined: new Date("2024-03-01"),
     address: "78 Pine Road",
@@ -40,7 +40,7 @@ export const MOCK_TRAINEES: Trainee[] = [
   {
     id: 4,
     name: "Amelia Brown",
-    grade: "B",
+    grade: 64,
     email: "amelia.brown@example.com",
     dateJoined: new Date("2024-03-22"),
     address: "90 Maple Street",
@@ -52,7 +52,7 @@ export const MOCK_TRAINEES: Trainee[] = [
   {
     id: 5,
     name: "Noah Wilson",
-    grade: "A+",
+    grade: 97,
     email: "noah.wilson@example.com",
     dateJoined: new Date("2024-04-05"),
     address: "33 Cedar Lane",
@@ -64,7 +64,7 @@ export const MOCK_TRAINEES: Trainee[] = [
   {
     id: 6,
     name: "Isabella Rossi",
-    grade: "B-",
+    grade: 60,
     email: "isabella.rossi@example.com",
     dateJoined: new Date("2024-05-12"),
     address: "56 Birch Boulevard",
@@ -76,7 +76,7 @@ export const MOCK_TRAINEES: Trainee[] = [
   {
     id: 7,
     name: "James Patel",
-    grade: "A",
+    grade: 94,
     email: "james.patel@example.com",
     dateJoined: new Date("2024-06-18"),
     address: "101 Willow Street",
@@ -88,7 +88,7 @@ export const MOCK_TRAINEES: Trainee[] = [
   {
     id: 8,
     name: "Mia Kim",
-    grade: "B+",
+    grade: 87,
     email: "mia.kim@example.com",
     dateJoined: new Date("2024-07-01"),
     address: "78 Spruce Road",
@@ -100,7 +100,7 @@ export const MOCK_TRAINEES: Trainee[] = [
   {
     id: 9,
     name: "Alexander Dubois",
-    grade: "A-",
+    grade: 50,
     email: "alex.dubois@example.com",
     dateJoined: new Date("2024-07-20"),
     address: "14 Rue de la Paix",
@@ -112,7 +112,7 @@ export const MOCK_TRAINEES: Trainee[] = [
   {
     id: 10,
     name: "Olivia Smith",
-    grade: "B",
+    grade: 74,
     email: "olivia.smith@example.com",
     dateJoined: new Date("2024-08-08"),
     address: "200 Ash Drive",
@@ -124,7 +124,7 @@ export const MOCK_TRAINEES: Trainee[] = [
   {
     id: 11,
     name: "Daniel Müller",
-    grade: "A",
+    grade: 94,
     email: "daniel.mueller@example.com",
     dateJoined: new Date("2024-08-25"),
     address: "23 Lindenstraße",

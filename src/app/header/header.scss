@@ -1,8 +1,8 @@
- @import '../../styles.scss';
+@import '../../styles.scss';
 
 header {
-  background-color: $dark-green; // Added background color
-  background: linear-gradient(135deg, $dark-green, darken($dark-green, 5%)); // Added gradient for depth
+  background-color: $dark-green;
+  background: linear-gradient(135deg, $dark-green, darken($light-green, 5%));
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -80,8 +80,6 @@ header {
   }
 }
 
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .nav-container {
     padding: 0 16px;

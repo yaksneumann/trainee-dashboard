@@ -77,16 +77,15 @@
       </div>
     </mat-card-content>
   
-    <mat-card-footer class="paginator-container">
-        <div>Showing: {{ filteredData().length }} of {{ trainees().length }} trainees</div>
-        <mat-paginator 
-            [pageSize]="pageSize"
-            [hidePageSize]="true"
-            [length]="filteredData().length"
-            [pageIndex]="currentPage"
-            (page)="onPageChange($event)"
-            aria-label="Select page of trainees">
-      </mat-paginator>
+    <mat-card-footer>
+      <app-pagination 
+        [totalItems]="trainees().length"
+        [totalFilteredItems]="filteredData().length" 
+        [itemsPerPage]="pageSize"
+        [pageIndex]="currentPage()"
+        (pageChange)="onPageChange($event)">
+      </app-pagination>
+
     </mat-card-footer>
   </mat-card>
 </div>

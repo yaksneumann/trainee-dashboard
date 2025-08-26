@@ -9,7 +9,7 @@ import { ToastService } from './toast.service';
 export class TraineeService {
   private static readonly STORAGE_KEY_TRAINEES = 'traineeManager.trainees';
   private static readonly STORAGE_KEY_NEXT_ID = 'trainee.nextId';
-  
+
   private toastService = inject(ToastService);
 
   private traineesSignal = signal<Trainee[]>([...MOCK_TRAINEES]);
@@ -17,6 +17,9 @@ export class TraineeService {
 
   private filterTextSignal = signal<string>('');
   readonly filterText = this.filterTextSignal.asReadonly();
+
+  private monitorFilterSignal = signal<string>('');
+  readonly monitorFilter = this.monitorFilterSignal.asReadonly();
 
   private advancedFilterSignal = signal<boolean>(false);
   readonly isAdvancedFilter = this.advancedFilterSignal.asReadonly();
@@ -55,7 +58,7 @@ export class TraineeService {
     const lowerFilter = filterText.toLowerCase();
     return this.traineesSignal().filter(trainee => 
       trainee.name.toLowerCase().includes(lowerFilter) ||
-      trainee.grade.toLowerCase().includes(lowerFilter) ||
+      trainee.grade.toString().includes(lowerFilter) ||
       trainee.subject.toLowerCase().includes(lowerFilter) ||
       trainee.email.toLowerCase().includes(lowerFilter) ||
       trainee.id.toString().includes(lowerFilter) ||
@@ -67,9 +70,18 @@ export class TraineeService {
   private evaluateCondition(trainee: Trainee, condition: string): boolean {
     const filterStrategies: {[key: string]: (t: Trainee, value: string) => boolean} = {
       'id:': (t, value) => t.id.toString() === value.trim(),
-      'grade:': (t, value) => t.grade.toUpperCase() === value.trim().toUpperCase(),
-      'grade>': (t, value) => this.compareGrades(t.grade, value.trim()) > 0,
-      'grade<': (t, value) => this.compareGrades(t.grade, value.trim()) < 0,
+      'grade:': (t, value) => {
+        const gradeValue = parseInt(value.trim());
+        return !isNaN(gradeValue) && t.grade === gradeValue;
+      },
+      'grade>': (t, value) => {
+        const gradeValue = parseInt(value.trim());
+        return !isNaN(gradeValue) && t.grade > gradeValue;
+      },
+      'grade<': (t, value) => {
+        const gradeValue = parseInt(value.trim());
+        return !isNaN(gradeValue) && t.grade < gradeValue;
+      },
       'date>': (t, value) => {
         try { return t.dateJoined > new Date(value.trim()); } 
         catch { return false; }
@@ -88,25 +100,18 @@ export class TraineeService {
     }
     const lowerCondition = condition.toLowerCase();
     return trainee.name.toLowerCase().includes(lowerCondition) ||
-          trainee.grade.toLowerCase().includes(lowerCondition) ||
+          trainee.grade.toString().includes(lowerCondition) ||
           trainee.subject.toLowerCase().includes(lowerCondition) ||
           trainee.email.toLowerCase().includes(lowerCondition) ||
           trainee.id.toString().includes(lowerCondition);
   }
-  
-  private compareGrades(gradeA: string, gradeB: string): number {
-    const gradeOrder = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F', 'F-'];
-    const normalizedA = gradeA.toUpperCase();
-    const normalizedB = gradeB.toUpperCase();
-    const posA = gradeOrder.indexOf(normalizedA);
-    const posB = gradeOrder.indexOf(normalizedB);
-    const valueA = posA === -1 ? gradeOrder.length : posA;
-    const valueB = posB === -1 ? gradeOrder.length : posB;
-    return valueB - valueA;
-  }
 
   setFilter(filter: string) {
     this.filterTextSignal.set(filter);
+  }
+
+  setMonitorFilter(filter: string) {
+    this.monitorFilterSignal.set(filter);
   }
   
   toggleAdvancedFilter(isAdvanced: boolean) {

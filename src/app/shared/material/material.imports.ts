@@ -8,6 +8,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 export const MATERIAL_IMPORTS = [
   MatButtonModule,
@@ -19,5 +21,7 @@ export const MATERIAL_IMPORTS = [
   MatPaginatorModule,
   MatSortModule,
   MatCheckboxModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatSelectModule,
+  MatFormFieldModule
 ];

@@ -1,0 +1,11 @@
+<div class="paginator-container">
+  <div class="showing-text">{{ showingText() }}</div>
+  <mat-paginator 
+    [pageSize]="itemsPerPage()"
+    [hidePageSize]="true"
+    [length]="totalFilteredItems()"
+    [pageIndex]="pageIndex()"
+    (page)="onPageChange($event)"
+    aria-label="Select page">
+  </mat-paginator>
+</div>

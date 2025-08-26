@@ -30,7 +30,7 @@
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field half-width">
                 <mat-label>Grade</mat-label>
-                <input matInput formControlName="grade" placeholder="Enter grade (A-F)">
+                <input type="number" min="1" max="100" matInput formControlName="grade" placeholder="Enter grade (1-100)">
                 @if (isFieldInvalid('grade')) {
                   <mat-error>{{ getFieldError('grade') }}</mat-error>
                 }
