@@ -39,21 +39,17 @@ A modern Angular-based Single Page Application for managing trainee test results
 
 ```bash
 npm install
-ng serve
+ng serve -o
 ```
 
-Navigate to `http://localhost:4200/`
+That will navigate you to `http://localhost:4200/`
 
 ## 🧪 Running Tests
 
-For running specific component tests, use the following command:
+For running specific component tests, please use the following command:
 
 ```bash
 ng test --include="**/trainee-list.component.spec.ts"
 ```
 
-This will run only the tests for the TraineeListComponent. To run all tests:
-
-```bash
-ng test
-```
+This will run only the tests for the TraineeListComponent.

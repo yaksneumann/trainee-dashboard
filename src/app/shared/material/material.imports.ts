@@ -10,6 +10,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export const MATERIAL_IMPORTS = [
   MatButtonModule,
@@ -23,5 +24,6 @@ export const MATERIAL_IMPORTS = [
   MatCheckboxModule,
   MatSlideToggleModule,
   MatSelectModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatTooltipModule
 ];

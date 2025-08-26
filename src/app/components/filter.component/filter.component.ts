@@ -1,19 +1,10 @@
-import { Component, input, output, inject, signal, effect } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, signal, effect } from '@angular/core';
 import { MATERIAL_IMPORTS } from '../../shared/material/material.imports';
 import { TraineeService } from '../../services/trainee.service';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-filter',
-  imports: [
-    CommonModule, 
-    FormsModule, 
-    ReactiveFormsModule, 
-    ...MATERIAL_IMPORTS,
-    MatTooltipModule
-  ],
+  imports: [...MATERIAL_IMPORTS],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'
 })

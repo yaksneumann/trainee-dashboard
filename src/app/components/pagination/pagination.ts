@@ -1,11 +1,10 @@
-import { Component, input, output, model, signal, computed, effect } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, output, model, computed } from '@angular/core';
 import { MATERIAL_IMPORTS } from '../../shared/material/material.imports';
 
 @Component({
   selector: 'app-pagination',
   standalone: true,
-  imports: [CommonModule, ...MATERIAL_IMPORTS],
+  imports: [...MATERIAL_IMPORTS],
   templateUrl: './pagination.html',
   styleUrl: './pagination.css'
 })
