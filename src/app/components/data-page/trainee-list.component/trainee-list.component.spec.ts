@@ -1,37 +1,42 @@
+import 'zone.js';
+import 'zone.js/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TraineeListComponent } from './trainee-list.component';
 import { TraineeService } from '../../../services/trainee.service';
 import { MOCK_TRAINEES } from '../../../shared/mocks/mock-trainees';
-import { Trainee } from '../../../shared/models/trainee.interface';
 import { signal } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('TraineeListComponent', () => {
   let component: TraineeListComponent;
   let fixture: ComponentFixture<TraineeListComponent>;
-  let mockTraineeService: jasmine.SpyObj<TraineeService>;
+  let mockTraineeService: jasmine.SpyObj<TraineeService> & { 
+    filterText: any; 
+    filteredTrainees: any;
+  };
 
   beforeEach(async () => {
-    // Create a mock TraineeService with jasmine spy objects
-    const traineeServiceSpy = jasmine.createSpyObj('TraineeService', ['setFilter']);
+    const filterTextSignal = signal('');
     
-    // Create a separate spy for the filteredTrainees function
     const filteredTraineesSpy = jasmine.createSpy('filteredTrainees');
     filteredTraineesSpy.and.returnValue(MOCK_TRAINEES.slice(0, 5));
     
-    // Assign the spy to the service
-    Object.defineProperty(traineeServiceSpy, 'filteredTrainees', {
-      value: filteredTraineesSpy
-    });
+    const traineeServiceSpy = jasmine.createSpyObj('TraineeService', 
+      ['setFilter', 'toggleAdvancedFilter'], 
+      {
+        filterText: filterTextSignal,
+        filteredTrainees: filteredTraineesSpy
+      }
+    );
 
     await TestBed.configureTestingModule({
       imports: [
-        BrowserAnimationsModule,
         TraineeListComponent
       ],
       providers: [
         { provide: TraineeService, useValue: traineeServiceSpy }
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 
@@ -44,6 +49,19 @@ describe('TraineeListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should update filtered results when filter changes', () => {
+    const mockTrainee = MOCK_TRAINEES[0];
+    
+    (mockTraineeService.filteredTrainees as jasmine.Spy).and.returnValue([mockTrainee]);
+    
+    component.currentPage.set(0);
+
+    component.updatePaginatedData();
+    
+    expect(component.paginatedData.length).toBe(1);
+    expect(component.paginatedData[0]).toEqual(mockTrainee);
   });
 
   it('should emit selected trainee when a row is clicked', () => {
@@ -71,18 +89,13 @@ describe('TraineeListComponent', () => {
   });
 
   it('should reset currentPage to 0 when filtered data is empty for current page', () => {
-    // Arrange
-    // Setup the mock to return an array with only a few items
     (mockTraineeService.filteredTrainees as jasmine.Spy).and.returnValue(MOCK_TRAINEES.slice(0, 5)); 
     
-    // Set current page to 1, which would be empty with only 5 items and pageSize=10
     component.currentPage.set(1); 
     spyOn(component.currentPage, 'set');
     
-    // Act
     component.updatePaginatedData();
     
-    // Assert
     expect(component.currentPage.set).toHaveBeenCalledWith(0);
   });
 });
