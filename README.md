@@ -1,59 +1,59 @@
-# TraineeDashboard
+# trainee-dashboard
+# TraineeHub 📚
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.5.
+A modern Angular-based Single Page Application for managing trainee test results and performance analytics with Material Design.
 
-## Development server
+## 🚀 Features
 
-To start a local development server, run:
+- **Data Management**: CRUD operations for trainee records with advanced filtering and pagination
+- **Performance Analytics**: Interactive charts with drag-and-drop functionality for data visualization  
+- **Monitor Dashboard**: Real-time pass/fail status tracking with color-coded indicators
+- **Smart Filtering**: Support for keyword searches (ID:, >, <) and multi-criteria filtering
+- **State Persistence**: Maintains page states across navigation without refresh
+- **Responsive Design**: Mobile-first approach with Angular Material components
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Angular 17+ with TypeScript
+- **UI Library**: Angular Material Design
+- **Charts**: Chart.js with ng2-charts
+- **Drag & Drop**: Angular CDK
+- **State Management**: Custom service with localStorage
+- **Styling**: SCSS with custom Material theme
+
+## 📋 Pages
+
+1. **Data Page**: Trainee CRUD with filtering, sorting, and pagination (10 results per page)
+2. **Analysis Page**: Multi-select filters for IDs/subjects with draggable chart panels  
+3. **Monitor Page**: Pass/fail status display (65+ average = passed) with status filtering
+
+## 🎯 Key Requirements
+
+- ✅ Persistent page states across navigation
+- ✅ Advanced filtering with special keywords support
+- ✅ Drag-and-drop chart functionality
+- ✅ Responsive Material Design interface
+- ✅ Unit testing ready architecture
+
+## 🚦 Getting Started 
 
 ```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navigate to `http://localhost:4200/`
 
-## Code scaffolding
+## 🧪 Running Tests
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+For running specific component tests, use the following command:
 
 ```bash
-ng generate --help
+ng test --include="**/trainee-list.component.spec.ts"
 ```
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+This will run only the tests for the TraineeListComponent. To run all tests:
 
 ```bash
 ng test
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

@@ -65,26 +65,20 @@ describe('TraineeListComponent', () => {
   });
 
   it('should emit selected trainee when a row is clicked', () => {
-    // Arrange
     const testTrainee = MOCK_TRAINEES[0];
     spyOn(component.selectedTrainee, 'emit');
     
-    // Act
     component.onSelectedTrainee(testTrainee);
     
-    // Assert
     expect(component.selectedTrainee.emit).toHaveBeenCalledWith(testTrainee);
   });
 
   it('should update currentPage when onPageChange is called', () => {
-    // Arrange
     const newPageIndex = 2;
     spyOn(component.currentPage, 'set');
     
-    // Act
     component.onPageChange(newPageIndex);
-    
-    // Assert
+
     expect(component.currentPage.set).toHaveBeenCalledWith(newPageIndex);
   });
 
