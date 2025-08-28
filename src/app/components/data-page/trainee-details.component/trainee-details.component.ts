@@ -19,15 +19,14 @@ export class TraineeDetailsComponent  {
   selectedTraineeId = input<number | null>(null);
   currentTrainee = input<Trainee | null>(null);
 
-  saveTrainee = output<Partial<Trainee>>();
-  selectTrainee = output<number>();
   deleteTrainee = output<number>();
-  newTrainee = output<void>();
 
   traineeForm!: FormGroup;
+
   get isEditMode(): boolean {
     return !!this.currentTrainee();
   }
+  
   selectedProduct: Trainee | null = null; 
   formValues = computed(() => {
     const trainee = this.currentTrainee();
@@ -83,10 +82,9 @@ export class TraineeDetailsComponent  {
   onSaveTrainee() {
     if (this.traineeForm.valid) {
       const formData = this.traineeForm.value;
-      // No need to convert grade to uppercase as it's now a number
-      const currentTrainee = this.currentTrainee();
+      const currentTrainee = this.currentTrainee()!;
 
-      if (this.isEditMode && currentTrainee) {
+      if (this.isEditMode) {
         this.traineeService.updateTrainee(formData as Trainee, currentTrainee.id);
       } else {
         this.traineeService.addTrainee(formData);

@@ -1,47 +1,36 @@
 <div class="monitor-page-container">
-  <h1>Trainee Performance Monitor</h1>
-  
-  <div class="">
-    <mat-card class="filter-card">
-      <mat-card-content>
-        <div class="filter-section vertical">
-          <mat-form-field appearance="outline" class="id-filter">
-            <mat-label>Filter by Trainee ID</mat-label>
-            <mat-select multiple [value]="selectedIds()" (selectionChange)="selectedIds.set($event.value)">
-              @for (trainee of monitorTrainees(); track trainee.id) {
-                <mat-option [value]="trainee.id">
-                  {{ trainee.id }} - {{ trainee.name }}
-                </mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-          
-          <mat-form-field appearance="outline" class="name-filter">
-            <mat-label>Filter by name</mat-label>
-            <input matInput [value]="nameFilter()" (input)="onNameFilterChange($event)" placeholder="Enter trainee name">
-            @if (nameFilter()) {
-              <button matSuffix mat-icon-button aria-label="Clear" (click)="clearNameFilter()">
-                <mat-icon>close</mat-icon>
-              </button>
-            }
-          </mat-form-field>
-        </div>
-      </mat-card-content>
-    </mat-card>
-    
-    <mat-card class="state-filter-card">
-      <mat-card-content>
-        <div class="state-filter">
-          <label>State:</label>
-          <mat-checkbox [checked]="showPassed()" (change)="showPassed.set($event.checked)">Passed</mat-checkbox>
-          <mat-checkbox [checked]="showFailed()" (change)="showFailed.set($event.checked)">Failed</mat-checkbox>
-          <button mat-flat-button (click)="clearFilters()" class="clear-button">
-            <mat-icon>filter_alt_off</mat-icon>
-            Clear Filters
-          </button>
-        </div>
-      </mat-card-content>
-    </mat-card>
+  <h1 class="page-title">Trainee Results</h1>
+  <div class="filter-section vertical">
+    <mat-form-field appearance="outline" class="id-filter">
+      <mat-label>Filter by Trainee ID</mat-label>
+      <mat-select multiple [value]="selectedIds()" (selectionChange)="selectedIds.set($event.value)">
+        @for (trainee of monitorTrainees(); track trainee.id) {
+        <mat-option [value]="trainee.id">
+          {{ trainee.id }} - {{ trainee.name }}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Filter by name</mat-label>
+      <input matInput [value]="nameFilter()" (input)="onNameFilterChange($event)" placeholder="Enter trainee name">
+      @if (nameFilter()) {
+      <button matSuffix mat-icon-button aria-label="Clear" (click)="clearNameFilter()">
+        <mat-icon>close</mat-icon>
+      </button>
+      }
+    </mat-form-field>
+  </div>
+
+  <div class="state-filter">
+    <label>State:</label>
+    <mat-checkbox [checked]="showPassed()" (change)="showPassed.set($event.checked)">Passed</mat-checkbox>
+    <mat-checkbox [checked]="showFailed()" (change)="showFailed.set($event.checked)">Failed</mat-checkbox>
+    <button mat-flat-button (click)="clearFilters()" class="clear-button">
+      <mat-icon>filter_alt_off</mat-icon>
+      Clear Filters
+    </button>
   </div>
   
   <mat-card class="monitor-grid-card">

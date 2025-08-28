@@ -1,27 +1,23 @@
+<h1 class="page-title">Analytics Dashboard</h1>
 <div class="analysis-container">
     <div class="filters-container">
-        <div class="filter-row">
-            <mat-form-field appearance="outline" class="filter-field">
-                <mat-label>IDs</mat-label>
-                <mat-select [value]="selectedIds()" multiple (selectionChange)="selectedIds.set($event.value)">
-                    @for (trainee of trainees(); track trainee.id) {
-                    <mat-option [value]="trainee.id">{{ trainee.id }} - {{ trainee.name }}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-        <div class="filter-row">
-            <mat-form-field appearance="outline" class="filter-field">
-                <mat-label>Subjects</mat-label>
-                <mat-select [value]="selectedSubjects()" multiple
-                    (selectionChange)="selectedSubjects.set($event.value)">
-                    @for (subject of allSubjects(); track subject) {
-                    <mat-option [value]="subject">{{ subject }}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
-        </div>
+        <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>IDs</mat-label>
+            <mat-select [value]="selectedIds()" multiple (selectionChange)="selectedIds.set($event.value)">
+                @for (trainee of trainees(); track trainee.id) {
+                <mat-option [value]="trainee.id">{{ trainee.id }} - {{ trainee.name }}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Subjects</mat-label>
+            <mat-select [value]="selectedSubjects()" multiple (selectionChange)="selectedSubjects.set($event.value)">
+                @for (subject of allSubjects(); track subject) {
+                <mat-option [value]="subject">{{ subject }}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
     </div>
 
     <div class="charts-container" cdkDropList id="chartsList" [cdkDropListConnectedTo]="['hiddenChartList']"

@@ -50,6 +50,13 @@ body {
     border-color: $light-green;
 }
 
+.page-title {
+    text-align: center;
+    color: $light-green;
+    margin: 12px 0;
+    font-weight: 500;
+}
+
 .mat-form-field.green-outline {
     .mat-form-field-outline {
         color: $dark-green;
